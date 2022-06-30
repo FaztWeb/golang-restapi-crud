@@ -5,26 +5,22 @@ import (
 	"log"
 	"net/http"
 
+	"github.com/faztweb/golang-restapi-crud/handlers"
 	"github.com/gorilla/mux"
 )
-
-var tasks = Tasks{
-	{
-		ID:      1,
-		Name:    "Task One",
-		Content: "Some Content",
-	},
-}
 
 func main() {
 	router := mux.NewRouter().StrictSlash(true)
 
-	router.HandleFunc("/", indexRoute)
-	router.HandleFunc("/tasks", createTask).Methods("POST")
-	router.HandleFunc("/tasks", getTasks).Methods("GET")
-	router.HandleFunc("/tasks/{id}", getOneTask).Methods("GET")
-	router.HandleFunc("/tasks/{id}", deleteTask).Methods("DELETE")
-	router.HandleFunc("/tasks/{id}", updateTask).Methods("PUT")
+	// Index Routes
+	router.HandleFunc("/", handlers.IndexRoute)
+
+	// Tasks Routes
+	router.HandleFunc("/tasks", handlers.CreateTask).Methods("POST")
+	router.HandleFunc("/tasks", handlers.GetTasks).Methods("GET")
+	router.HandleFunc("/tasks/{id}", handlers.GetOneTask).Methods("GET")
+	router.HandleFunc("/tasks/{id}", handlers.DeleteTask).Methods("DELETE")
+	router.HandleFunc("/tasks/{id}", handlers.UpdateTask).Methods("PUT")
 
 	fmt.Println("Server started on port ", 3000)
 	log.Fatal(http.ListenAndServe(":3000", router))

@@ -1,9 +1,9 @@
 @api = http://localhost:3000/tasks
 
+### get tasks
 GET {{api}}
 
 ### Create Task
-
 POST {{api}}
 Content-Type: application/json
 
@@ -12,3 +12,19 @@ Content-Type: application/json
   "Content": "Go to the store and buy milk",
   "completed": false
 }
+
+### Get single task
+GET {{api}}/1
+
+### Update task
+PUT {{api}}/1
+Content-Type: application/json
+
+{
+  "name": "Buy a computer",
+  "Content": "Go to the store and buy a computer",
+  "completed": true
+}
+
+### Delete task
+DELETE {{api}}/1
